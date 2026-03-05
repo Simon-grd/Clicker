@@ -199,7 +199,7 @@ function performClick() {
     kills[names[currentImg]]++;
     currentImg = Math.floor(Math.random() * 4);
     level++;
-    credits += 15;
+    credits += 10 + level;
     score = 0;
     targetScore = Math.floor(15 * Math.pow(1.2, level - 1));
   }

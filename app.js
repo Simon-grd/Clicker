@@ -71,6 +71,32 @@ const progressBarEl = document.getElementById("progressBar");
 
 let autoClickerInterval = null;
 let autoClickerTimeout = null;
+let powerPositions = [];
+
+function updatePowerDisplay() {
+  powerDisplayEl.innerHTML = "";
+  const allPowers = [];
+  for (let i = 0; i < powers.kalash; i++) allPowers.push('/images/kalash.webp');
+  for (let i = 0; i < powers.porteAvion; i++) allPowers.push('/images/porte_avion.webp');
+  for (let i = 0; i < powers.nuclear; i++) allPowers.push('/images/nuclear.webp');
+  
+  powerPositions = [];
+  allPowers.forEach(() => {
+    powerPositions.push({
+      left: Math.random() * 90,
+      top: Math.random() * 90
+    });
+  });
+  
+  allPowers.forEach((src, i) => {
+    const img = document.createElement('img');
+    img.className = 'w-12 h-12 object-contain';
+    img.src = src;
+    img.style.left = `${powerPositions[i].left}vw`;
+    img.style.top = `${powerPositions[i].top}vh`;
+    powerDisplayEl.appendChild(img);
+  });
+}
 
 function updateDisplay() {
   levelEl.textContent = `Niveau ${level}`;
@@ -100,21 +126,6 @@ function updateDisplay() {
   nuclearEl.style.opacity = credits >= 100 ? "1" : "0.5";
   imprimanteEl.style.opacity = credits >= 120 && !autoClickerInterval ? "1" : "0.5";
 
-  powerDisplayEl.innerHTML = "";
-  const allPowers = [];
-  for (let i = 0; i < powers.kalash; i++) allPowers.push('/images/kalash.webp');
-  for (let i = 0; i < powers.porteAvion; i++) allPowers.push('/images/porte_avion.webp');
-  for (let i = 0; i < powers.nuclear; i++) allPowers.push('/images/nuclear.webp');
-  
-  allPowers.forEach(() => {
-    const img = document.createElement('img');
-    img.className = 'w-12 h-12 object-contain';
-    img.src = allPowers[Math.floor(Math.random() * allPowers.length)];
-    img.style.left = `${Math.random() * 90}vw`;
-    img.style.top = `${Math.random() * 90}vh`;
-    powerDisplayEl.appendChild(img);
-  });
-
   totalClicksEl.textContent = `Clicks: ${totalClicks}`;
   statsEl.innerHTML = `
     <div class="text-center"><img src="/images/shrek.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.shrek}</p></div>
@@ -128,10 +139,12 @@ function buyPower(cost, powerName) {
   if (credits >= cost) {
     credits -= cost;
     powers[powerName]++;
+    updatePowerDisplay();
     updateDisplay();
   }
 }
 
+updatePowerDisplay();
 updateDisplay();
 
 setInterval(saveGame, 30000);
@@ -197,6 +210,7 @@ function performClick() {
     credits += 10 + level;
     score = 0;
     targetScore = Math.floor(15 * Math.pow(1.2, level - 1));
+    updatePowerDisplay();
   }
   updateDisplay();
 }

@@ -1,7 +1,7 @@
 const images = [
-  "/images/Shrek.webp",
-  "/images/Babar.webp",
-  "/images/Bashar.webp",
+  "/images/shrek.webp",
+  "/images/babar.webp",
+  "/images/bashar.webp",
   "/images/singe.webp",
 ];
 
@@ -122,9 +122,9 @@ function updateDisplay() {
 
   totalClicksEl.textContent = `Clicks: ${totalClicks}`;
   statsEl.innerHTML = `
-    <div class="text-center"><img src="/images/Shrek.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.shrek}</p></div>
-    <div class="text-center"><img src="/images/Babar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.babar}</p></div>
-    <div class="text-center"><img src="/images/Bashar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.bashar}</p></div>
+    <div class="text-center"><img src="/images/shrek.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.shrek}</p></div>
+    <div class="text-center"><img src="/images/babar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.babar}</p></div>
+    <div class="text-center"><img src="/images/bashar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.bashar}</p></div>
     <div class="text-center"><img src="/images/singe.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.singe}</p></div>
   `;
 }

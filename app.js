@@ -201,6 +201,7 @@ function performClick() {
   multiplier +=
     powers.kalash * 50 + powers.porteAvion * 100 + powers.nuclear * 150;
   score += multiplier;
+  credits += Math.floor(level / 2) + 1;
 
   if (score >= targetScore) {
     const names = ["shrek", "babar", "bashar", "singe"];

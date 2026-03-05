@@ -207,7 +207,7 @@ function performClick() {
     kills[names[currentImg]]++;
     currentImg = Math.floor(Math.random() * 4);
     level++;
-    credits += 10 + level;
+    credits += 10 + level * 2;
     score = 0;
     targetScore = Math.floor(15 * Math.pow(1.2, level - 1));
     updatePowerDisplay();
@@ -216,3 +216,7 @@ function performClick() {
 }
 
 imageEl.onclick = performClick;
+imageEl.oncontextmenu = (e) => {
+  e.preventDefault();
+  performClick();
+};

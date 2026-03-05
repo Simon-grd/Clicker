@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clicker Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes bounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(0.9); }
+      }
+    </style>
+  </head>
+  <body class="text-center bg-gray-800 text-white">
+    <button
+      id="resetBtn"
+      class="absolute top-4 left-4 bg-red-600 px-4 py-2 rounded"
+    >
+      Recommencer
+    </button>
+    <button
+      id="saveBtn"
+      class="absolute top-4 right-4 bg-blue-600 px-4 py-2 rounded"
+    >
+      Sauvegarder
+    </button>
+    <div class="max-w-sm mx-auto mt-12">
+      <div id="level" class="text-2xl m-2">Niveau 1</div>
+      <div class="w-full bg-gray-700 rounded-full h-4 mb-2">
+        <div id="progressBar" class="bg-green-500 h-4 rounded-full transition-all" style="width: 0%"></div>
+      </div>
+      <div id="score" class="text-2xl m-2">Score: 0</div>
+      <div id="credits" class="text-xl m-2">Crédits: 0</div>
+      <div id="totalMult" class="text-lg m-2 text-green-400">
+        Multiplicateur: x1
+      </div>
+      <div class="flex justify-center items-center gap-2">
+        <div id="powerDisplay" class="grid grid-cols-3 gap-1 w-24"></div>
+        <img
+          id="clickImage"
+          src="/images/Shrek.webp"
+          class="w-48 h-48 cursor-pointer rounded-lg"
+        />
+      </div>
+      <div class="flex justify-center gap-4 mt-4">
+        <div class="text-center">
+          <img
+            id="kalash"
+            src="/images/kalash.webp"
+            class="w-16 h-16 object-contain cursor-pointer rounded opacity-50"
+          />
+          <p class="text-sm">20 crédits</p>
+          <p id="kalashMult" class="text-xs text-yellow-400">X 0</p>
+        </div>
+        <div class="text-center">
+          <img
+            id="porteAvion"
+            src="/images/porte_avion.webp"
+            class="w-16 h-16 object-contain cursor-pointer rounded opacity-50"
+          />
+          <p class="text-sm">60 crédits</p>
+          <p id="porteAvionMult" class="text-xs text-yellow-400">X 0</p>
+        </div>
+        <div class="text-center">
+          <img
+            id="nuclear"
+            src="/images/nuclear.webp"
+            class="w-16 h-16 object-contain cursor-pointer rounded opacity-50"
+          />
+          <p class="text-sm">100 crédits</p>
+          <p id="nuclearMult" class="text-xs text-yellow-400">X 0</p>
+        </div>
+        <div class="text-center">
+          <img
+            id="imprimante"
+            src="/images/imprimante.webp"
+            class="w-16 h-16 object-contain cursor-pointer rounded opacity-50"
+          />
+          <p class="text-sm">120 crédits</p>
+          <p class="text-xs text-yellow-400">Autoclicker</p>
+          <p id="imprimanteTimer" class="text-xs text-purple-400"></p>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-600 pt-4">
+        <h3 class="text-xl mb-3">Statistiques</h3>
+        <p id="totalClicks" class="text-sm mb-2 text-gray-300">Clicks: 0</p>
+        <div id="stats" class="grid grid-cols-4 gap-2"></div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

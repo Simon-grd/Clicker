@@ -10,6 +10,22 @@
         0%, 100% { transform: scale(1); }
         50% { transform: scale(0.9); }
       }
+      #powerDisplay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+      }
+      #powerDisplay img {
+        position: absolute;
+      }
+      .max-w-sm {
+        position: relative;
+        z-index: 1;
+      }
     </style>
   </head>
   <body class="text-center bg-gray-800 text-white">
@@ -36,7 +52,6 @@
         Multiplicateur: x1
       </div>
       <div class="flex justify-center items-center gap-2">
-        <div id="powerDisplay" class="grid grid-cols-3 gap-1 w-24"></div>
         <img
           id="clickImage"
           src="/images/shrek.webp"
@@ -88,6 +103,7 @@
         <div id="stats" class="grid grid-cols-4 gap-2"></div>
       </div>
     </div>
+    <div id="powerDisplay"></div>
     <script src="app.js"></script>
   </body>
 </html>

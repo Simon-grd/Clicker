@@ -101,24 +101,19 @@ function updateDisplay() {
   imprimanteEl.style.opacity = credits >= 120 && !autoClickerInterval ? "1" : "0.5";
 
   powerDisplayEl.innerHTML = "";
-  if (powers.kalash > 0) {
-    for (let i = 0; i < powers.kalash; i++) {
-      powerDisplayEl.innerHTML +=
-        '<img src="/images/kalash.webp" class="w-12 h-12 object-contain" />';
-    }
-  }
-  if (powers.porteAvion > 0) {
-    for (let i = 0; i < powers.porteAvion; i++) {
-      powerDisplayEl.innerHTML +=
-        '<img src="/images/porte_avion.webp" class="w-12 h-12 object-contain" />';
-    }
-  }
-  if (powers.nuclear > 0) {
-    for (let i = 0; i < powers.nuclear; i++) {
-      powerDisplayEl.innerHTML +=
-        '<img src="/images/nuclear.webp" class="w-12 h-12 object-contain" />';
-    }
-  }
+  const allPowers = [];
+  for (let i = 0; i < powers.kalash; i++) allPowers.push('/images/kalash.webp');
+  for (let i = 0; i < powers.porteAvion; i++) allPowers.push('/images/porte_avion.webp');
+  for (let i = 0; i < powers.nuclear; i++) allPowers.push('/images/nuclear.webp');
+  
+  allPowers.forEach(() => {
+    const img = document.createElement('img');
+    img.className = 'w-12 h-12 object-contain';
+    img.src = allPowers[Math.floor(Math.random() * allPowers.length)];
+    img.style.left = `${Math.random() * 90}vw`;
+    img.style.top = `${Math.random() * 90}vh`;
+    powerDisplayEl.appendChild(img);
+  });
 
   totalClicksEl.textContent = `Clicks: ${totalClicks}`;
   statsEl.innerHTML = `

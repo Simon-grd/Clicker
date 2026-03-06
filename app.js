@@ -3,6 +3,7 @@ const images = [
   "/images/babar.webp",
   "/images/bashar.webp",
   "/images/singe.webp",
+  "/images/neta.webp",
 ];
 
 function loadGame() {
@@ -15,8 +16,8 @@ function loadGame() {
       targetScore: data.targetScore || 10,
       credits: data.credits || 0,
       powers: data.powers || { kalash: 0, porteAvion: 0, nuclear: 0 },
-      kills: data.kills || { shrek: 0, babar: 0, bashar: 0, singe: 0 },
-      currentImg: data.currentImg ?? Math.floor(Math.random() * 4),
+      kills: data.kills || { shrek: 0, babar: 0, bashar: 0, singe: 0, neta: 0 },
+      currentImg: data.currentImg ?? Math.floor(Math.random() * 5),
       totalClicks: data.totalClicks || 0,
     };
   }
@@ -26,8 +27,8 @@ function loadGame() {
     targetScore: 10,
     credits: 0,
     powers: { kalash: 0, porteAvion: 0, nuclear: 0 },
-    kills: { shrek: 0, babar: 0, bashar: 0, singe: 0 },
-    currentImg: Math.floor(Math.random() * 4),
+    kills: { shrek: 0, babar: 0, bashar: 0, singe: 0, neta: 0 },
+    currentImg: Math.floor(Math.random() * 5),
     totalClicks: 0,
   };
 }
@@ -80,22 +81,24 @@ function updatePowerDisplay() {
   for (let i = 0; i < powers.porteAvion; i++) allPowers.push('/images/porte_avion.webp');
   for (let i = 0; i < powers.nuclear; i++) allPowers.push('/images/nuclear.webp');
   
+  const maxDisplay = Math.min(allPowers.length, 30);
   powerPositions = [];
-  allPowers.forEach(() => {
+  
+  for (let i = 0; i < maxDisplay; i++) {
     powerPositions.push({
       left: Math.random() * 90,
       top: Math.random() * 90
     });
-  });
+  }
   
-  allPowers.forEach((src, i) => {
+  for (let i = 0; i < maxDisplay; i++) {
     const img = document.createElement('img');
     img.className = 'w-12 h-12 object-contain';
-    img.src = src;
+    img.src = allPowers[i % allPowers.length];
     img.style.left = `${powerPositions[i].left}vw`;
     img.style.top = `${powerPositions[i].top}vh`;
     powerDisplayEl.appendChild(img);
-  });
+  }
 }
 
 function updateDisplay() {
@@ -132,6 +135,7 @@ function updateDisplay() {
     <div class="text-center"><img src="/images/babar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.babar}</p></div>
     <div class="text-center"><img src="/images/bashar.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.bashar}</p></div>
     <div class="text-center"><img src="/images/singe.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.singe}</p></div>
+    <div class="text-center"><img src="/images/neta.webp" class="w-16 h-16 mx-auto object-contain rounded" /><p class="text-sm mt-1">${kills.neta}</p></div>
   `;
 }
 
@@ -204,9 +208,9 @@ function performClick() {
   credits += Math.floor(level / 2) + 1;
 
   if (score >= targetScore) {
-    const names = ["shrek", "babar", "bashar", "singe"];
+    const names = ["shrek", "babar", "bashar", "singe", "neta"];
     kills[names[currentImg]]++;
-    currentImg = Math.floor(Math.random() * 4);
+    currentImg = Math.floor(Math.random() * 5);
     level++;
     credits += 10 + level * 2;
     score = 0;

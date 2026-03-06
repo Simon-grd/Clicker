@@ -110,11 +110,14 @@ function updateDisplay() {
       ? "w-64 h-64 cursor-pointer rounded-lg"
       : "w-48 h-48 cursor-pointer rounded-lg";
   const baseMultiplier = level;
+  const kalashMult = 50 + level;
+  const porteAvionMult = 100 + level * 2;
+  const nuclearMult = 150 + level * 3;
   const totalMultiplier =
     baseMultiplier +
-    powers.kalash * 50 +
-    powers.porteAvion * 100 +
-    powers.nuclear * 150;
+    powers.kalash * kalashMult +
+    powers.porteAvion * porteAvionMult +
+    powers.nuclear * nuclearMult;
   scoreEl.textContent = `Score: ${score}`;
   creditsEl.textContent = `Crédits: ${credits}`;
   totalMultEl.textContent = `Multiplicateur: x${totalMultiplier}`;
@@ -122,9 +125,9 @@ function updateDisplay() {
   const progress = (score / targetScore) * 100;
   progressBarEl.style.width = `${progress}%`;
   
-  kalashMultEl.textContent = `+${powers.kalash * 50}`;
-  porteAvionMultEl.textContent = `+${powers.porteAvion * 100}`;
-  nuclearMultEl.textContent = `+${powers.nuclear * 150}`;
+  kalashMultEl.textContent = `+${powers.kalash * kalashMult}`;
+  porteAvionMultEl.textContent = `+${powers.porteAvion * porteAvionMult}`;
+  nuclearMultEl.textContent = `+${powers.nuclear * nuclearMult}`;
   kalashEl.style.opacity = credits >= 20 ? "1" : "0.5";
   porteAvionEl.style.opacity = credits >= 60 ? "1" : "0.5";
   nuclearEl.style.opacity = credits >= 100 ? "1" : "0.5";
@@ -205,8 +208,11 @@ function performClick() {
   }, 15);
   
   let multiplier = level;
+  const kalashMult = 50 + level;
+  const porteAvionMult = 100 + level * 2;
+  const nuclearMult = 150 + level * 3;
   multiplier +=
-    powers.kalash * 50 + powers.porteAvion * 100 + powers.nuclear * 150;
+    powers.kalash * kalashMult + powers.porteAvion * porteAvionMult + powers.nuclear * nuclearMult;
   score += multiplier;
   credits += Math.floor(level / 2) + 1;
 

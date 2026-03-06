@@ -72,6 +72,7 @@ const progressBarEl = document.getElementById("progressBar");
 
 let autoClickerInterval = null;
 let autoClickerTimeout = null;
+let autoClickerTimeLeft = 0;
 let powerPositions = [];
 
 function updatePowerDisplay() {
@@ -166,29 +167,31 @@ porteAvionEl.onclick = () => buyPower(60, "porteAvion");
 nuclearEl.onclick = () => buyPower(100, "nuclear");
 
 imprimanteEl.onclick = () => {
-  if (credits >= 120 && !autoClickerInterval) {
+  if (credits >= 120) {
     credits -= 120;
-    let timeLeft = 60;
-    imprimanteTimerEl.textContent = `${timeLeft}s`;
+    autoClickerTimeLeft += 60;
     
-    autoClickerInterval = setInterval(() => {
-      imageEl.click();
-    }, 100);
-    
-    const timerInterval = setInterval(() => {
-      timeLeft--;
-      imprimanteTimerEl.textContent = `${timeLeft}s`;
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-      }
-    }, 1000);
-    
-    autoClickerTimeout = setTimeout(() => {
-      clearInterval(autoClickerInterval);
-      autoClickerInterval = null;
-      imprimanteTimerEl.textContent = "";
-      updateDisplay();
-    }, 60000);
+    if (!autoClickerInterval) {
+      imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
+      
+      autoClickerInterval = setInterval(() => {
+        imageEl.click();
+      }, 100);
+      
+      const timerInterval = setInterval(() => {
+        autoClickerTimeLeft--;
+        imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
+        if (autoClickerTimeLeft <= 0) {
+          clearInterval(timerInterval);
+          clearInterval(autoClickerInterval);
+          autoClickerInterval = null;
+          imprimanteTimerEl.textContent = "";
+          updateDisplay();
+        }
+      }, 1000);
+    } else {
+      imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
+    }
     
     updateDisplay();
   }

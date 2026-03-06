@@ -73,6 +73,8 @@ const progressBarEl = document.getElementById("progressBar");
 let autoClickerInterval = null;
 let autoClickerTimeout = null;
 let autoClickerTimeLeft = 0;
+let autoClickerSpeed = 100;
+let autoClickerLevel = 0;
 let powerPositions = [];
 
 function updatePowerDisplay() {
@@ -173,27 +175,33 @@ imprimanteEl.onclick = () => {
   if (credits >= 120) {
     credits -= 120;
     autoClickerTimeLeft += 60;
+    autoClickerLevel++;
     
-    if (!autoClickerInterval) {
-      imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
-      
+    if (autoClickerInterval) {
+      clearInterval(autoClickerInterval);
+    }
+    
+    autoClickerSpeed = Math.max(10, 100 / autoClickerLevel);
+    imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s (x${autoClickerLevel})`;
+    
+    if (!autoClickerInterval || autoClickerTimeLeft > 0) {
       autoClickerInterval = setInterval(() => {
         imageEl.click();
-      }, 100);
+      }, autoClickerSpeed);
       
       const timerInterval = setInterval(() => {
         autoClickerTimeLeft--;
-        imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
+        imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s (x${autoClickerLevel})`;
         if (autoClickerTimeLeft <= 0) {
           clearInterval(timerInterval);
           clearInterval(autoClickerInterval);
           autoClickerInterval = null;
+          autoClickerLevel = 0;
+          autoClickerSpeed = 100;
           imprimanteTimerEl.textContent = "";
           updateDisplay();
         }
       }, 1000);
-    } else {
-      imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s`;
     }
     
     updateDisplay();

@@ -71,7 +71,7 @@ const totalClicksEl = document.getElementById("totalClicks");
 const progressBarEl = document.getElementById("progressBar");
 
 let autoClickerInterval = null;
-let autoClickerTimeout = null;
+let autoClickerTimerInterval = null;
 let autoClickerTimeLeft = 0;
 let autoClickerSpeed = 100;
 let autoClickerLevel = 0;
@@ -180,29 +180,31 @@ imprimanteEl.onclick = () => {
     if (autoClickerInterval) {
       clearInterval(autoClickerInterval);
     }
+    if (autoClickerTimerInterval) {
+      clearInterval(autoClickerTimerInterval);
+    }
     
     autoClickerSpeed = Math.max(10, 100 / autoClickerLevel);
     imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s (x${autoClickerLevel})`;
     
-    if (!autoClickerInterval || autoClickerTimeLeft > 0) {
-      autoClickerInterval = setInterval(() => {
-        imageEl.click();
-      }, autoClickerSpeed);
-      
-      const timerInterval = setInterval(() => {
-        autoClickerTimeLeft--;
-        imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s (x${autoClickerLevel})`;
-        if (autoClickerTimeLeft <= 0) {
-          clearInterval(timerInterval);
-          clearInterval(autoClickerInterval);
-          autoClickerInterval = null;
-          autoClickerLevel = 0;
-          autoClickerSpeed = 100;
-          imprimanteTimerEl.textContent = "";
-          updateDisplay();
-        }
-      }, 1000);
-    }
+    autoClickerInterval = setInterval(() => {
+      imageEl.click();
+    }, autoClickerSpeed);
+    
+    autoClickerTimerInterval = setInterval(() => {
+      autoClickerTimeLeft--;
+      imprimanteTimerEl.textContent = `${autoClickerTimeLeft}s (x${autoClickerLevel})`;
+      if (autoClickerTimeLeft <= 0) {
+        clearInterval(autoClickerTimerInterval);
+        clearInterval(autoClickerInterval);
+        autoClickerInterval = null;
+        autoClickerTimerInterval = null;
+        autoClickerLevel = 0;
+        autoClickerSpeed = 100;
+        imprimanteTimerEl.textContent = "";
+        updateDisplay();
+      }
+    }, 1000);
     
     updateDisplay();
   }
